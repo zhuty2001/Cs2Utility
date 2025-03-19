@@ -29,29 +29,34 @@ const generatePrompt = (map: string, query: string) => {
 地图：${map}
 需求：${query}
 
-请按照以下格式提供3个推荐点位：
-1. 位置名称
-2. 道具类型（烟雾弹/闪光弹/燃烧弹）
-3. 投掷方式（跳投/站立/跑动）
-4. 详细描述
-5. 难度等级（easy/medium/hard）
-6. 坐标位置（x, y, z）
+请严格按照以下JSON格式返回3个推荐点位，确保所有属性名都使用双引号，所有字符串值也使用双引号：
 
-请用JSON格式返回，包含以下字段：
 {
   "results": [
     {
-      "id": "唯一ID",
-      "map": "地图名称",
+      "id": "spot_1",
+      "map": "${map}",
       "location": "位置名称",
       "description": "详细描述",
-      "coordinates": {"x": 数值, "y": 数值, "z": 数值},
-      "utility_type": "道具类型",
-      "throw_type": "投掷方式",
-      "difficulty": "难度等级"
+      "coordinates": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "utility_type": "烟雾弹",
+      "throw_type": "跳投",
+      "difficulty": "easy"
     }
   ]
-}`;
+}
+
+注意：
+1. 所有属性名必须使用双引号
+2. 所有字符串值必须使用双引号
+3. 坐标值使用数字，不要使用字符串
+4. difficulty 只能是 "easy"、"medium" 或 "hard" 之一
+5. utility_type 可以是 "烟雾弹"、"闪光弹" 或 "燃烧弹"
+6. throw_type 可以是 "跳投"、"站立" 或 "跑动"`;
 };
 
 const api = {
@@ -71,7 +76,7 @@ const api = {
           messages: [
             {
               role: "system",
-              content: "你是一个专业的CS2道具投掷专家，请提供准确的道具投掷建议。"
+              content: "你是一个专业的CS2道具投掷专家。请严格按照指定的JSON格式返回结果，确保所有属性名和字符串值都使用双引号。"
             },
             {
               role: "user",
