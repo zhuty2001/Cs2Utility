@@ -1,21 +1,26 @@
 {
-  "name": "vite-project",
+  "name": "cs2-utility",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
-  "devDependencies": {
-    "typescript": "~5.7.2",
-    "vite": "^6.2.0"
-  },
   "dependencies": {
     "@types/leaflet": "^1.9.16",
     "axios": "^1.8.4",
     "leaflet": "^1.9.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-router-dom": "^7.4.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.64",
+    "@types/react-dom": "^18.2.21",
+    "@vitejs/plugin-react": "^4.2.1",
+    "typescript": "~5.3.3",
+    "vite": "^5.1.6"
   }
 }
