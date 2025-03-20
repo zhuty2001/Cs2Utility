@@ -5,19 +5,10 @@ const MapView = () => {
   const { mapName } = useParams();
 
   return (
-    <div className="map-view">
-      <h1>{mapName?.toUpperCase()} 道具投掷指南</h1>
-      <div className="map-content">
-        <div className="map-image">
-          <img src={`/maps_processed/${mapName}/overview.png`} alt={mapName} />
-        </div>
-        <div className="map-info">
-          <h2>常用投掷点位</h2>
-          <div className="throw-spots">
-            {/* 这里后续会添加具体的投掷点位信息 */}
-            <p>正在开发中...</p>
-          </div>
-        </div>
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-6">{mapName?.toUpperCase()} 地图详情</h1>
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <p className="text-gray-600">地图详情页面正在开发中...</p>
       </div>
     </div>
   );
