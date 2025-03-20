@@ -13,6 +13,9 @@ const Navbar = () => {
           <Link to="/map/dust2" className="navbar-link">Dust2</Link>
           <Link to="/map/mirage" className="navbar-link">Mirage</Link>
           <Link to="/map/inferno" className="navbar-link">Inferno</Link>
+          <Link to="/map/nuke" className="navbar-link">Nuke</Link>
+          <Link to="/map/anubis" className="navbar-link">Anubis</Link>
+          <Link to="/map/ancient" className="navbar-link">Ancient</Link>
         </div>
       </div>
     </nav>

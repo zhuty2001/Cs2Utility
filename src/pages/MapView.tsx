@@ -9,7 +9,7 @@ const MapView = () => {
       <h1>{mapName?.toUpperCase()} 道具投掷指南</h1>
       <div className="map-content">
         <div className="map-image">
-          <img src={`/maps/${mapName}.jpg`} alt={mapName} />
+          <img src={`/maps_processed/${mapName}/overview.png`} alt={mapName} />
         </div>
         <div className="map-info">
           <h2>常用投掷点位</h2>

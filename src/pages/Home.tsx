@@ -6,19 +6,37 @@ const maps = [
     id: 'dust2',
     name: 'Dust2',
     description: '经典地图，适合各种战术和道具投掷',
-    image: '/maps/dust2.jpg'
+    image: '/maps_processed/dust2/overview.png'
   },
   {
     id: 'mirage',
     name: 'Mirage',
     description: '现代竞技地图，需要精确的道具配合',
-    image: '/maps/mirage.jpg'
+    image: '/maps_processed/mirage/overview.png'
   },
   {
     id: 'inferno',
     name: 'Inferno',
     description: '意大利风格地图，适合近距离战斗',
-    image: '/maps/inferno.jpg'
+    image: '/maps_processed/inferno/overview.png'
+  },
+  {
+    id: 'nuke',
+    name: 'Nuke',
+    description: '垂直空间利用的地图，需要特殊投掷技巧',
+    image: '/maps_processed/nuke/overview.png'
+  },
+  {
+    id: 'anubis',
+    name: 'Anubis',
+    description: '埃及主题地图，需要创新的战术配合',
+    image: '/maps_processed/anubis/overview.png'
+  },
+  {
+    id: 'ancient',
+    name: 'Ancient',
+    description: '丛林主题地图，需要灵活的道具运用',
+    image: '/maps_processed/ancient/overview.png'
   }
 ];
 
