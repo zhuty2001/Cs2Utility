@@ -49,37 +49,35 @@ const MapView = () => {
           <div className="p-6 bg-gray-800">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {currentMapViews.map((view, index) => (
-                <div key={index} className="flex gap-4">
-                  <div className="bg-gray-900 rounded-lg overflow-hidden flex-1">
-                    <img
-                      src={`/Cs2Utility/images/maps/${mapName}/${view}`}
-                      alt={`${mapName} 地图 ${index + 1}`}
-                      className="w-full h-auto object-contain"
-                    />
-                  </div>
-                  <div className="w-48 bg-gray-900 rounded-lg p-4 flex flex-col gap-4">
-                    <div className="text-lg font-bold text-center mb-2">投掷物类型</div>
-                    <div className="flex flex-col gap-3">
-                      <div className="flex items-center gap-2">
-                        <span className="text-2xl">💨</span>
-                        <span>烟雾弹</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-2xl">⚡</span>
-                        <span>闪光弹</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-2xl">🔥</span>
-                        <span>燃烧弹</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-2xl">🎯</span>
-                        <span>诱饵弹</span>
-                      </div>
-                    </div>
-                  </div>
+                <div key={index} className="bg-gray-900 rounded-lg overflow-hidden">
+                  <img
+                    src={`/Cs2Utility/images/maps/${mapName}/${view}`}
+                    alt={`${mapName} 地图 ${index + 1}`}
+                    className="w-full h-auto object-contain"
+                  />
                 </div>
               ))}
+            </div>
+            <div className="mt-6 bg-gray-900 rounded-lg p-4">
+              <div className="text-lg font-bold text-center mb-4">投掷物类型</div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="flex items-center gap-2 bg-gray-800 p-2 rounded-lg">
+                  <span className="text-xl">💨</span>
+                  <span>烟雾弹</span>
+                </div>
+                <div className="flex items-center gap-2 bg-gray-800 p-2 rounded-lg">
+                  <span className="text-xl">⚡</span>
+                  <span>闪光弹</span>
+                </div>
+                <div className="flex items-center gap-2 bg-gray-800 p-2 rounded-lg">
+                  <span className="text-xl">🔥</span>
+                  <span>燃烧弹</span>
+                </div>
+                <div className="flex items-center gap-2 bg-gray-800 p-2 rounded-lg">
+                  <span className="text-xl">🎯</span>
+                  <span>诱饵弹</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
