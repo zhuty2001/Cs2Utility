@@ -24,7 +24,7 @@ const MapView = () => {
 
   // 获取图片路径的辅助函数
   const getImagePath = (view: string) => {
-    return `/images/maps/${mapName}/${view}`;
+    return `./images/maps/${mapName}/${view}`;
   };
 
   return (
