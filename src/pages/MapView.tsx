@@ -6,17 +6,18 @@ const MapView = () => {
   const { mapName } = useParams();
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [currentViewIndex, setCurrentViewIndex] = useState(0);
 
   // 地图雷达图文件映射
   const mapRadarFiles: { [key: string]: string[] } = {
     'dust2': ['Dust-2-callouts-1.jpg'],
     'mirage': ['csgo-mirage-map-callouts-counter-strike.jpg'],
     'inferno': ['csgo-Inferno-map-callouts-and-positions.jpg'],
-    'nuke': ['Nuke-callouts-A-site.jpg'],
+    'nuke': ['Nuke-callouts-A-site.jpg', 'Nuke-callouts-B-bombsite.jpg'],
     'anubis': ['CSGO-Anubis-Callouts.jpg'],
     'ancient': ['Ancient-callouts.jpg'],
     'overpass': ['Overpass-Callouts.jpg'],
-    'vertigo': ['Vertigo-callouts-lower.jpg'],
+    'vertigo': ['Vertigo-callouts-lower.jpg', 'Vertigo-callouts-upper.jpg'],
     'train': ['CS2-Train-Map-callouts-and-positions.jpg']
   };
 
@@ -47,10 +48,38 @@ const MapView = () => {
     document.addEventListener('mouseup', handleMouseUp);
   };
 
+  const handleViewChange = (index: number) => {
+    setCurrentViewIndex(index);
+    setScale(1);
+    setPosition({ x: 0, y: 0 });
+  };
+
+  const currentMapViews = mapRadarFiles[mapName || ''] || [];
+  const hasMultipleViews = currentMapViews.length > 1;
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6 capitalize">{mapName} 地图</h1>
       <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+        {hasMultipleViews && (
+          <div className="p-4 border-b">
+            <div className="flex gap-2">
+              {currentMapViews.map((view, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleViewChange(index)}
+                  className={`px-4 py-2 rounded-lg transition-colors ${
+                    currentViewIndex === index
+                      ? 'bg-blue-500 text-white'
+                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  }`}
+                >
+                  {view.replace(/_/g, ' ').replace(/\.jpg$/, '')}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
         <div 
           className="relative w-full h-[600px] overflow-hidden"
           onWheel={handleWheel}
@@ -64,7 +93,7 @@ const MapView = () => {
             onMouseDown={handleMouseDown}
           >
             <img
-              src={`/Cs2Utility/images/maps/${mapName}/${mapRadarFiles[mapName || ''][0]}`}
+              src={`/Cs2Utility/images/maps/${mapName}/${currentMapViews[currentViewIndex]}`}
               alt={`${mapName} 地图`}
               className="w-full h-full object-contain"
             />
