@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Maps from './pages/Maps';
 import MapView from './pages/MapView';
+import AIQuery from './pages/AIQuery';
 import './App.css';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/maps" element={<Maps />} />
             <Route path="/maps/:mapName" element={<MapView />} />
+            <Route path="/ai-query" element={<AIQuery />} />
           </Routes>
         </main>
       </div>

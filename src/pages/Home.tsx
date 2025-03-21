@@ -14,7 +14,14 @@ const Home = () => {
               </div>
             </div>
           </Link>
-          {/* 其他功能卡片 */}
+          <Link to="/ai-query" className="block">
+            <div className="bg-gray-800 rounded-xl shadow-2xl overflow-hidden border border-gray-700 hover:border-blue-500 transition-colors">
+              <div className="p-6">
+                <h2 className="text-2xl font-bold mb-4">AI 查询</h2>
+                <p className="text-gray-300">智能问答系统，为您解答投掷物相关问题</p>
+              </div>
+            </div>
+          </Link>
         </div>
       </div>
     </div>
