@@ -1,63 +1,94 @@
 from PIL import Image
 import os
+import requests
+from bs4 import BeautifulSoup
+import time
+import re
 
-def process_image(input_path, output_path):
-    # 打开图片
-    img = Image.open(input_path)
-    
-    # 转换为 RGBA 模式（如果还不是的话）
-    if img.mode != 'RGBA':
-        img = img.convert('RGBA')
-    
-    # 获取图片数据
-    data = img.getdata()
-    
-    # 创建新的像素数据
-    new_data = []
-    
-    # 处理每个像素
-    for item in data:
-        # 如果像素接近黑色（R,G,B 都小于 30），则将其转换为白色
-        if item[0] < 30 and item[1] < 30 and item[2] < 30:
-            new_data.append((255, 255, 255, item[3]))  # 转换为白色，保持原始透明度
+def download_image(url, save_path):
+    """下载图片并保存"""
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            with open(save_path, 'wb') as f:
+                f.write(response.content)
+            print(f'成功下载图片: {save_path}')
+            return True
         else:
-            new_data.append(item)  # 保持其他像素不变
+            print(f'下载失败，状态码: {response.status_code}')
+            return False
+    except Exception as e:
+        print(f'下载出错: {str(e)}')
+        return False
+
+def get_map_radar_url(map_url):
+    """获取地图详情页面中的雷达图URL"""
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+    }
     
-    # 更新图片数据
-    img.putdata(new_data)
+    try:
+        response = requests.get(map_url, headers=headers)
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.text, 'html.parser')
+            # 查找包含雷达图的图片元素
+            radar_images = soup.find_all('img', src=lambda x: x and ('radar' in x.lower() or 'overview' in x.lower()))
+            
+            for img in radar_images:
+                img_url = img.get('src', '')
+                if img_url:
+                    if not img_url.startswith('http'):
+                        img_url = 'https:' + img_url
+                    return img_url
+        return None
+    except Exception as e:
+        print(f'获取雷达图URL出错: {str(e)}')
+        return None
+
+def download_maps_from_blitz():
+    """从 blitz.gg 下载地图雷达图"""
+    # 定义所有地图及其对应的URL
+    maps = {
+        'dust2': 'de_dust2',
+        'mirage': 'de_mirage',
+        'inferno': 'de_inferno',
+        'nuke': 'de_nuke',
+        'vertigo': 'de_vertigo',
+        'overpass': 'de_overpass',
+        'anubis': 'de_anubis',
+        'ancient': 'de_ancient'
+    }
     
-    # 保存处理后的图片
-    img.save(output_path, 'PNG')
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+    }
+    
+    # 创建保存目录
+    save_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'public', 'images', 'maps')
+    os.makedirs(save_dir, exist_ok=True)
+    
+    for map_name, map_code in maps.items():
+        # 构建地图详情页面的URL
+        map_url = f'https://blitz.gg/cs2/database/maps/{map_code}/overview'
+        
+        # 获取雷达图URL
+        radar_url = get_map_radar_url(map_url)
+        if not radar_url:
+            print(f'未找到地图 {map_name} 的雷达图')
+            continue
+        
+        # 创建地图目录
+        map_dir = os.path.join(save_dir, map_name)
+        os.makedirs(map_dir, exist_ok=True)
+        
+        # 下载雷达图
+        save_path = os.path.join(map_dir, f'Cs2_{map_name}_radar.png')
+        if download_image(radar_url, save_path):
+            time.sleep(1)  # 添加延迟，避免请求过快
 
 def main():
-    # 获取脚本所在目录的父目录（项目根目录）
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.dirname(script_dir)
-    
-    # 设置输入和输出目录
-    base_dir = os.path.join(project_root, 'public', 'images', 'maps_processed')
-    
-    # 遍历所有地图文件夹
-    for map_name in os.listdir(base_dir):
-        map_dir = os.path.join(base_dir, map_name)
-        
-        # 确保是目录
-        if not os.path.isdir(map_dir):
-            continue
-            
-        # 遍历地图文件夹中的所有图片
-        for filename in os.listdir(map_dir):
-            if filename.lower().endswith('.png'):
-                input_path = os.path.join(map_dir, filename)
-                output_path = os.path.join(map_dir, f'processed_{filename}')
-                
-                print(f'处理图片: {input_path}')
-                process_image(input_path, output_path)
-                
-                # 替换原文件
-                os.remove(input_path)
-                os.rename(output_path, input_path)
-                print(f'完成处理: {input_path}')
+    print('开始从 blitz.gg 下载地图雷达图...')
+    download_maps_from_blitz()
 
 if __name__ == '__main__':
     main() 
