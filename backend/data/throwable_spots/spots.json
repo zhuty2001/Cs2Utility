@@ -1,0 +1,51 @@
+{
+  "spots": [
+    {
+      "id": "1",
+      "map": "dust2",
+      "location": "A点",
+      "throwable_type": "SMOKE",
+      "description": "从A点投掷烟雾弹到A门，可以阻挡CT的视线",
+      "image_path": "/images/dust2/a_smoke.jpg",
+      "tags": ["A点", "A门", "烟雾弹", "防守"],
+      "query_patterns": [
+        "dust2 A点烟雾弹",
+        "dust2 A门烟雾",
+        "dust2 A点防守烟雾",
+        "dust2 A门封烟"
+      ],
+      "throw_type": "w+跳投"
+    },
+    {
+      "id": "2",
+      "map": "mirage",
+      "location": "B点",
+      "throwable_type": "FLASH",
+      "description": "从B点投掷闪光弹到B小，可以闪白B小的敌人",
+      "image_path": "/images/mirage/b_flash.jpg",
+      "tags": ["B点", "B小", "闪光弹", "进攻"],
+      "query_patterns": [
+        "mirage B点闪光",
+        "mirage B小闪光",
+        "mirage B点进攻闪光",
+        "mirage B小清点闪光"
+      ],
+      "throw_type": "站立投掷"
+    },
+    {
+      "id": "3",
+      "map": "inferno",
+      "location": "香蕉道",
+      "throwable_type": "MOLOTOV",
+      "description": "从香蕉道投掷燃烧弹到B点，可以清空B点",
+      "image_path": "/images/inferno/banana_molotov.jpg",
+      "tags": ["香蕉道", "B点", "燃烧弹", "清点"],
+      "query_patterns": [
+        "inferno 香蕉道燃烧弹",
+        "inferno B点燃烧弹",
+        "inferno 香蕉道清点燃烧弹"
+      ],
+      "throw_type": "蹲着投掷"
+    }
+  ]
+} 
