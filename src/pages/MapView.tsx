@@ -7,14 +7,14 @@ const MapView = () => {
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
-  // 文件名映射
-  const imageFileMap: { [key: string]: string } = {
-    'dust2': 'Cs2_dust2_overview.png',
-    'mirage': 'Cs2_mirage_radar.png',
-    'inferno': 'CS2_inferno_radar.png',
-    'nuke': 'Cs2_nuke_radar.png',
-    'anubis': 'De_anubis_radar.png',
-    'ancient': 'Ancient_Radar.png'
+  // 地图雷达图文件映射
+  const mapRadarFiles: { [key: string]: string[] } = {
+    'dust2': 'Dust-2-callouts-1.jpg',
+    'mirage': 'csgo-mirage-map-callouts-counter-strike.jpg',
+    'inferno': 'csgo-Inferno-map-callouts-and-positions.jpg',
+    'nuke': 'Nuke-callouts-A-site.jpg',
+    'anubis': 'CSGO-Anubis-Callouts.jpg',
+    'ancient': 'Ancient-callouts.jpg'
   };
 
   const handleWheel = (e: React.WheelEvent) => {
@@ -61,7 +61,7 @@ const MapView = () => {
             onMouseDown={handleMouseDown}
           >
             <img
-              src={`/Cs2Utility/images/maps_processed/${mapName}/${imageFileMap[mapName || '']}`}
+              src={`/Cs2Utility/images/maps_processed/${mapName}/${mapRadarFiles[mapName || ''][0]}`}
               alt={`${mapName} 地图`}
               className="w-full h-full object-contain"
             />

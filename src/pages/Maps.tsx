@@ -5,32 +5,32 @@ const Maps = () => {
     { 
       name: 'Dust2', 
       description: '经典沙漠地图，以其开阔的视野和标志性的长A大道闻名。',
-      image: '/Cs2Utility/images/maps_processed/dust2/Cs2_dust2_overview.png'
+      image: '/Cs2Utility/images/maps/dust2/Dust-2-callouts-1.jpg'
     },
     { 
       name: 'Mirage', 
       description: '中东风格地图，以复杂的巷道系统和中央宫殿为特色。',
-      image: '/Cs2Utility/images/maps_processed/mirage/Cs2_mirage_radar.png'
+      image: '/Cs2Utility/images/maps/mirage/csgo-mirage-map-callouts-counter-strike.jpg'
     },
     { 
       name: 'Inferno', 
       description: '意大利小镇地图，以狭窄的巷道和香蕉道闻名。',
-      image: '/Cs2Utility/images/maps_processed/inferno/CS2_inferno_radar.png'
+      image: '/Cs2Utility/images/maps/inferno/csgo-Inferno-map-callouts-and-positions.jpg'
     },
     { 
       name: 'Nuke', 
       description: '核电站地图，以垂直战斗和复杂的室内外转换著称。',
-      image: '/Cs2Utility/images/maps_processed/nuke/Cs2_nuke_radar.png'
+      image: '/Cs2Utility/images/maps/nuke/Nuke-callouts-A-site.jpg'
     },
     { 
       name: 'Anubis', 
       description: '埃及主题地图，以金字塔和古埃及建筑为特色。',
-      image: '/Cs2Utility/images/maps_processed/anubis/De_anubis_radar.png'
+      image: '/Cs2Utility/images/maps/anubis/CSGO-Anubis-Callouts.jpg'
     },
     { 
       name: 'Ancient', 
       description: '玛雅文明地图，以丛林环境和古代遗迹为特色。',
-      image: '/Cs2Utility/images/maps_processed/ancient/Ancient_Radar.png'
+      image: '/Cs2Utility/images/maps/ancient/Ancient-callouts.jpg'
     }
   ];
 
