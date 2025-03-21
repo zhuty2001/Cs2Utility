@@ -58,65 +58,67 @@ const MapView = () => {
   const hasMultipleViews = currentMapViews.length > 1;
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6 capitalize">{mapName} 地图</h1>
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-        {hasMultipleViews && (
-          <div className="p-4 border-b">
-            <div className="flex gap-2">
-              {currentMapViews.map((view, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleViewChange(index)}
-                  className={`px-4 py-2 rounded-lg transition-colors ${
-                    currentViewIndex === index
-                      ? 'bg-blue-500 text-white'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                  }`}
-                >
-                  {view.replace(/_/g, ' ').replace(/\.jpg$/, '')}
-                </button>
-              ))}
+    <div className="min-h-screen bg-gray-900 text-white">
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-4xl font-bold mb-8 capitalize text-center">{mapName} 地图</h1>
+        <div className="bg-gray-800 rounded-xl shadow-2xl overflow-hidden border border-gray-700">
+          {hasMultipleViews && (
+            <div className="p-4 border-b border-gray-700">
+              <div className="flex gap-2 justify-center">
+                {currentMapViews.map((view, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleViewChange(index)}
+                    className={`px-4 py-2 rounded-lg transition-colors ${
+                      currentViewIndex === index
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+                    }`}
+                  >
+                    {view.replace(/_/g, ' ').replace(/\.jpg$/, '')}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
-        )}
-        <div 
-          className="relative w-full h-[600px] overflow-hidden"
-          onWheel={handleWheel}
-        >
-          <div
-            className="absolute inset-0 cursor-grab active:cursor-grabbing"
-            style={{
-              transform: `scale(${scale}) translate(${position.x}px, ${position.y}px)`,
-              transition: 'transform 0.1s ease-out'
-            }}
-            onMouseDown={handleMouseDown}
+          )}
+          <div 
+            className="relative w-full h-[600px] overflow-hidden bg-gray-900"
+            onWheel={handleWheel}
           >
-            <img
-              src={`/Cs2Utility/images/maps/${mapName}/${currentMapViews[currentViewIndex]}`}
-              alt={`${mapName} 地图`}
-              className="w-full h-full object-contain"
-            />
-          </div>
-        </div>
-        <div className="p-6">
-          <div className="flex items-center justify-between mb-4">
-            <div className="text-sm text-gray-600">
-              提示：使用鼠标滚轮缩放，按住鼠标左键拖动地图
+            <div
+              className="absolute inset-0 cursor-grab active:cursor-grabbing"
+              style={{
+                transform: `scale(${scale}) translate(${position.x}px, ${position.y}px)`,
+                transition: 'transform 0.1s ease-out'
+              }}
+              onMouseDown={handleMouseDown}
+            >
+              <img
+                src={`/Cs2Utility/images/maps/${mapName}/${currentMapViews[currentViewIndex]}`}
+                alt={`${mapName} 地图`}
+                className="w-full h-full object-contain"
+              />
             </div>
-            <div className="flex gap-2">
-              <button
-                onClick={() => setScale(1)}
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-              >
-                重置缩放
-              </button>
-              <button
-                onClick={() => setPosition({ x: 0, y: 0 })}
-                className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
-              >
-                重置位置
-              </button>
+          </div>
+          <div className="p-6 bg-gray-800">
+            <div className="flex items-center justify-between">
+              <div className="text-sm text-gray-400">
+                提示：使用鼠标滚轮缩放，按住鼠标左键拖动地图
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setScale(1)}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                >
+                  重置缩放
+                </button>
+                <button
+                  onClick={() => setPosition({ x: 0, y: 0 })}
+                  className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
+                >
+                  重置位置
+                </button>
+              </div>
             </div>
           </div>
         </div>
