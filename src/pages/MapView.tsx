@@ -4,8 +4,6 @@ import './MapView.css';
 
 const MapView = () => {
   const { mapName } = useParams();
-  const [scale, setScale] = useState(1);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
   const [currentViewIndex, setCurrentViewIndex] = useState(0);
 
   // 地图雷达图文件映射
@@ -19,39 +17,6 @@ const MapView = () => {
     'overpass': ['Overpass-Callouts.jpg'],
     'vertigo': ['Vertigo-callouts-lower.jpg', 'Vertigo-callouts-upper.jpg'],
     'train': ['CS2-Train-Map-callouts-and-positions.jpg']
-  };
-
-  const handleWheel = (e: React.WheelEvent) => {
-    e.preventDefault();
-    const delta = e.deltaY * -0.01;
-    const newScale = Math.min(Math.max(scale + delta, 0.5), 3);
-    setScale(newScale);
-  };
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    const startX = e.clientX - position.x;
-    const startY = e.clientY - position.y;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      setPosition({
-        x: e.clientX - startX,
-        y: e.clientY - startY
-      });
-    };
-
-    const handleMouseUp = () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-    };
-
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-  };
-
-  const handleViewChange = (index: number) => {
-    setCurrentViewIndex(index);
-    setScale(1);
-    setPosition({ x: 0, y: 0 });
   };
 
   const currentMapViews = mapRadarFiles[mapName || ''] || [];
@@ -68,7 +33,7 @@ const MapView = () => {
                 {currentMapViews.map((view, index) => (
                   <button
                     key={index}
-                    onClick={() => handleViewChange(index)}
+                    onClick={() => setCurrentViewIndex(index)}
                     className={`px-4 py-2 rounded-lg transition-colors ${
                       currentViewIndex === index
                         ? 'bg-blue-600 text-white'
@@ -81,44 +46,17 @@ const MapView = () => {
               </div>
             </div>
           )}
-          <div 
-            className="relative w-full h-[600px] overflow-hidden bg-gray-900"
-            onWheel={handleWheel}
-          >
-            <div
-              className="absolute inset-0 cursor-grab active:cursor-grabbing"
-              style={{
-                transform: `scale(${scale}) translate(${position.x}px, ${position.y}px)`,
-                transition: 'transform 0.1s ease-out'
-              }}
-              onMouseDown={handleMouseDown}
-            >
-              <img
-                src={`/Cs2Utility/images/maps/${mapName}/${currentMapViews[currentViewIndex]}`}
-                alt={`${mapName} 地图`}
-                className="w-full h-full object-contain"
-              />
-            </div>
-          </div>
           <div className="p-6 bg-gray-800">
-            <div className="flex items-center justify-between">
-              <div className="text-sm text-gray-400">
-                提示：使用鼠标滚轮缩放，按住鼠标左键拖动地图
-              </div>
-              <div className="flex gap-2">
-                <button
-                  onClick={() => setScale(1)}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  重置缩放
-                </button>
-                <button
-                  onClick={() => setPosition({ x: 0, y: 0 })}
-                  className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
-                >
-                  重置位置
-                </button>
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {currentMapViews.map((view, index) => (
+                <div key={index} className="bg-gray-900 rounded-lg overflow-hidden">
+                  <img
+                    src={`/Cs2Utility/images/maps/${mapName}/${view}`}
+                    alt={`${mapName} 地图 ${index + 1}`}
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>
