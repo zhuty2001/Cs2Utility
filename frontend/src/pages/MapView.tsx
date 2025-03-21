@@ -50,12 +50,15 @@ const mapNameMapping: { [key: string]: string } = {
 
 // 地图雷达图文件映射
 const mapRadarFiles: { [key: string]: string[] } = {
-  dust2: ['Cs2_dust2_overview.png'],
-  mirage: ['Cs2_mirage_radar.png'],
-  inferno: ['CS2_inferno_radar.png'],
-  nuke: ['Cs2_nuke_radar.png', 'De_nuke_lower_radar.png'],
-  ancient: ['Ancient_Radar.png'],
-  anubis: ['De_anubis_radar.png']
+  dust2: ['Dust-2-callouts-1.jpg'],
+  mirage: ['csgo-mirage-map-callouts-counter-strike.jpg'],
+  inferno: ['csgo-Inferno-map-callouts-and-positions.jpg'],
+  nuke: ['Nuke-callouts-A-site.jpg', 'Nuke-callouts-B-bombsite.jpg'],
+  ancient: ['Ancient-callouts.jpg'],
+  anubis: ['CSGO-Anubis-Callouts.jpg'],
+  overpass: ['Overpass-Callouts.jpg'],
+  vertigo: ['Vertigo-callouts-lower.jpg', 'Vertigo-callouts-upper.jpg'],
+  train: ['CS2-Train-Map-callouts-and-positions.jpg']
 };
 
 // 地图更新组件
@@ -81,7 +84,7 @@ const MapView: React.FC = () => {
     const radarFiles = mapRadarFiles[selectedMap];
     if (radarFiles && radarFiles.length > 0) {
       const img = new Image();
-      const imagePath = `/cs2_utility_page/images/maps/${selectedMap}/${radarFiles[currentRadarIndex]}`;
+      const imagePath = `/images/maps/${selectedMap}/${radarFiles[currentRadarIndex]}`;
       console.log('Loading image:', imagePath);
       img.src = imagePath;
       img.onerror = () => {
@@ -187,7 +190,7 @@ const MapView: React.FC = () => {
             />
             {radarFiles.length > 0 && (
               <ImageOverlay
-                url={`/cs2_utility_page/images/maps/${selectedMap}/${radarFiles[currentRadarIndex]}`}
+                url={`/images/maps/${selectedMap}/${radarFiles[currentRadarIndex]}`}
                 bounds={mapConfig.bounds}
                 opacity={1}
               />
