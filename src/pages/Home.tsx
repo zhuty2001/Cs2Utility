@@ -65,6 +65,7 @@ const Home = () => {
         <div className="mt-16 text-center text-gray-600">
           <p>支持 Dust2、Mirage、Inferno、Nuke、Anubis、Ancient 等地图</p>
           <p className="mt-2">持续更新中...</p>
+          <p className="mt-4 text-sm">由 ZTYikes 制作</p>
         </div>
       </div>
     </div>
