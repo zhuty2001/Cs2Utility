@@ -40,6 +40,11 @@ jobs:
           cp dist/index.html dist/404.html
           echo "Created 404.html file"
 
+      - name: Create .nojekyll
+        run: |
+          touch dist/.nojekyll
+          echo "Created .nojekyll file"
+
       - name: List build output
         run: |
           echo "Build output directory contents:"
