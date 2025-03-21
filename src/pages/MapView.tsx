@@ -14,7 +14,10 @@ const MapView = () => {
     'inferno': ['csgo-Inferno-map-callouts-and-positions.jpg'],
     'nuke': ['Nuke-callouts-A-site.jpg'],
     'anubis': ['CSGO-Anubis-Callouts.jpg'],
-    'ancient': ['Ancient-callouts.jpg']
+    'ancient': ['Ancient-callouts.jpg'],
+    'overpass': ['Overpass-Callouts.jpg'],
+    'vertigo': ['Vertigo-callouts-lower.jpg'],
+    'train': ['CS2-Train-Map-callouts-and-positions.jpg']
   };
 
   const handleWheel = (e: React.WheelEvent) => {

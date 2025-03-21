@@ -31,6 +31,21 @@ const Maps = () => {
       name: 'Ancient', 
       description: '玛雅文明地图，以丛林环境和古代遗迹为特色。',
       image: '/Cs2Utility/images/maps/ancient/Ancient-callouts.jpg'
+    },
+    {
+      name: 'Overpass',
+      description: '德国城市地图，以复杂的地下通道和桥梁系统为特色。',
+      image: '/Cs2Utility/images/maps/overpass/Overpass-Callouts.jpg'
+    },
+    {
+      name: 'Vertigo',
+      description: '摩天大楼地图，以垂直战斗和复杂的室内外转换著称。',
+      image: '/Cs2Utility/images/maps/vertigo/Vertigo-callouts-lower.jpg'
+    },
+    {
+      name: 'Train',
+      description: '火车站地图，以复杂的铁路系统和室内外转换著称。',
+      image: '/Cs2Utility/images/maps/train/CS2-Train-Map-callouts-and-positions.jpg'
     }
   ];
 
