@@ -84,7 +84,7 @@ const MapView: React.FC = () => {
     const radarFiles = mapRadarFiles[selectedMap];
     if (radarFiles && radarFiles.length > 0) {
       const img = new Image();
-      const imagePath = `/images/maps/${selectedMap}/${radarFiles[currentRadarIndex]}`;
+      const imagePath = `/Cs2Utility/images/maps/${selectedMap}/${radarFiles[currentRadarIndex]}`;
       console.log('Loading image:', imagePath);
       img.src = imagePath;
       img.onerror = () => {
@@ -190,7 +190,7 @@ const MapView: React.FC = () => {
             />
             {radarFiles.length > 0 && (
               <ImageOverlay
-                url={`/images/maps/${selectedMap}/${radarFiles[currentRadarIndex]}`}
+                url={`/Cs2Utility/images/maps/${selectedMap}/${radarFiles[currentRadarIndex]}`}
                 bounds={mapConfig.bounds}
                 opacity={1}
               />

@@ -26,7 +26,7 @@ export const mapConfigs: Record<string, MapConfig> = {
     zoom: 0,
     bounds: [[0, 0], [1024, 1024]],
     mapImage: {
-      url: '/images/maps/dust2/Dust-2-callouts-1.jpg',
+      url: '/Cs2Utility/images/maps/dust2/Dust-2-callouts-1.jpg',
       width: 1024,
       height: 1024
     }
@@ -36,7 +36,7 @@ export const mapConfigs: Record<string, MapConfig> = {
     zoom: 2,
     bounds: [[-1, -1], [1, 1]],
     mapImage: {
-      url: '/images/maps/mirage/csgo-mirage-map-callouts-counter-strike.jpg',
+      url: '/Cs2Utility/images/maps/mirage/csgo-mirage-map-callouts-counter-strike.jpg',
       width: 1024,
       height: 1024
     }
@@ -46,7 +46,7 @@ export const mapConfigs: Record<string, MapConfig> = {
     zoom: 2,
     bounds: [[-1, -1], [1, 1]],
     mapImage: {
-      url: '/images/maps/inferno/csgo-Inferno-map-callouts-and-positions.jpg',
+      url: '/Cs2Utility/images/maps/inferno/csgo-Inferno-map-callouts-and-positions.jpg',
       width: 2048,
       height: 2048
     }
@@ -56,7 +56,7 @@ export const mapConfigs: Record<string, MapConfig> = {
     zoom: 2,
     bounds: [[-1, -1], [1, 1]],
     mapImage: {
-      url: '/images/maps/overpass/Overpass-Callouts.jpg',
+      url: '/Cs2Utility/images/maps/overpass/Overpass-Callouts.jpg',
       width: 2048,
       height: 2048
     }
@@ -66,7 +66,7 @@ export const mapConfigs: Record<string, MapConfig> = {
     zoom: 2,
     bounds: [[-1, -1], [1, 1]],
     mapImage: {
-      url: '/images/maps/nuke/Nuke-callouts-A-site.jpg',
+      url: '/Cs2Utility/images/maps/nuke/Nuke-callouts-A-site.jpg',
       width: 2048,
       height: 2048
     }
@@ -76,7 +76,7 @@ export const mapConfigs: Record<string, MapConfig> = {
     zoom: 2,
     bounds: [[-1, -1], [1, 1]],
     mapImage: {
-      url: '/images/maps/vertigo/Vertigo-callouts-lower.jpg',
+      url: '/Cs2Utility/images/maps/vertigo/Vertigo-callouts-lower.jpg',
       width: 2048,
       height: 2048
     }
@@ -86,7 +86,7 @@ export const mapConfigs: Record<string, MapConfig> = {
     zoom: 2,
     bounds: [[-1, -1], [1, 1]],
     mapImage: {
-      url: '/images/maps/ancient/Ancient-callouts.jpg',
+      url: '/Cs2Utility/images/maps/ancient/Ancient-callouts.jpg',
       width: 2048,
       height: 2048
     }
@@ -96,7 +96,7 @@ export const mapConfigs: Record<string, MapConfig> = {
     zoom: 2,
     bounds: [[-1, -1], [1, 1]],
     mapImage: {
-      url: '/images/maps/anubis/CSGO-Anubis-Callouts.jpg',
+      url: '/Cs2Utility/images/maps/anubis/CSGO-Anubis-Callouts.jpg',
       width: 2048,
       height: 2048
     }
@@ -106,7 +106,7 @@ export const mapConfigs: Record<string, MapConfig> = {
     zoom: 2,
     bounds: [[-1, -1], [1, 1]],
     mapImage: {
-      url: '/images/maps/train/CS2-Train-Map-callouts-and-positions.jpg',
+      url: '/Cs2Utility/images/maps/train/CS2-Train-Map-callouts-and-positions.jpg',
       width: 2048,
       height: 2048
     }
