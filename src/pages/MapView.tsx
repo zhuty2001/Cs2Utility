@@ -9,12 +9,12 @@ const MapView = () => {
 
   // 地图雷达图文件映射
   const mapRadarFiles: { [key: string]: string[] } = {
-    'dust2': 'Dust-2-callouts-1.jpg',
-    'mirage': 'csgo-mirage-map-callouts-counter-strike.jpg',
-    'inferno': 'csgo-Inferno-map-callouts-and-positions.jpg',
-    'nuke': 'Nuke-callouts-A-site.jpg',
-    'anubis': 'CSGO-Anubis-Callouts.jpg',
-    'ancient': 'Ancient-callouts.jpg'
+    'dust2': ['Dust-2-callouts-1.jpg'],
+    'mirage': ['csgo-mirage-map-callouts-counter-strike.jpg'],
+    'inferno': ['csgo-Inferno-map-callouts-and-positions.jpg'],
+    'nuke': ['Nuke-callouts-A-site.jpg'],
+    'anubis': ['CSGO-Anubis-Callouts.jpg'],
+    'ancient': ['Ancient-callouts.jpg']
   };
 
   const handleWheel = (e: React.WheelEvent) => {
