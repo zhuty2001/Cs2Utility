@@ -61,7 +61,7 @@ const MapView = () => {
             onMouseDown={handleMouseDown}
           >
             <img
-              src={`/frontend/public/images/maps_processed/${mapName}/${imageFileMap[mapName || '']}`}
+              src={`/images/maps_processed/${mapName}/${imageFileMap[mapName || '']}`}
               alt={`${mapName} 地图`}
               className="w-full h-full object-contain"
             />
