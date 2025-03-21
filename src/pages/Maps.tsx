@@ -5,32 +5,32 @@ const Maps = () => {
     { 
       name: 'Dust2', 
       description: '经典沙漠地图，以其开阔的视野和标志性的长A大道闻名。',
-      image: '/images/maps_processed/dust2/overview.png'
+      image: '/images/maps_processed/dust2/Cs2_dust2_overview.png'
     },
     { 
       name: 'Mirage', 
       description: '中东风格地图，以复杂的巷道系统和中央宫殿为特色。',
-      image: '/images/maps_processed/mirage/overview.png'
+      image: '/images/maps_processed/mirage/Cs2_mirage_overview.png'
     },
     { 
       name: 'Inferno', 
       description: '意大利小镇地图，以狭窄的巷道和香蕉道闻名。',
-      image: '/images/maps_processed/inferno/overview.png'
+      image: '/images/maps_processed/inferno/Cs2_inferno_overview.png'
     },
     { 
       name: 'Nuke', 
       description: '核电站地图，以垂直战斗和复杂的室内外转换著称。',
-      image: '/images/maps_processed/nuke/overview.png'
+      image: '/images/maps_processed/nuke/Cs2_nuke_overview.png'
     },
     { 
       name: 'Anubis', 
       description: '埃及主题地图，以金字塔和古埃及建筑为特色。',
-      image: '/images/maps_processed/anubis/overview.png'
+      image: '/images/maps_processed/anubis/Cs2_anubis_overview.png'
     },
     { 
       name: 'Ancient', 
       description: '玛雅文明地图，以丛林环境和古代遗迹为特色。',
-      image: '/images/maps_processed/ancient/overview.png'
+      image: '/images/maps_processed/ancient/Cs2_ancient_overview.png'
     }
   ];
 
