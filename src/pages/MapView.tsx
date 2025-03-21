@@ -47,17 +47,29 @@ const MapView = () => {
             </div>
           )}
           <div className="p-6 bg-gray-800">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {currentMapViews.map((view, index) => (
-                <div key={index} className="bg-gray-900 rounded-lg overflow-hidden">
+            {hasMultipleViews ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {currentMapViews.map((view, index) => (
+                  <div key={index} className="bg-gray-900 rounded-lg overflow-hidden">
+                    <img
+                      src={`/Cs2Utility/images/maps/${mapName}/${view}`}
+                      alt={`${mapName} 地图 ${index + 1}`}
+                      className="w-full h-auto object-contain"
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="max-w-4xl mx-auto">
+                <div className="bg-gray-900 rounded-lg overflow-hidden">
                   <img
-                    src={`/Cs2Utility/images/maps/${mapName}/${view}`}
-                    alt={`${mapName} 地图 ${index + 1}`}
+                    src={`/Cs2Utility/images/maps/${mapName}/${currentMapViews[0]}`}
+                    alt={`${mapName} 地图`}
                     className="w-full h-auto object-contain"
                   />
                 </div>
-              ))}
-            </div>
+              </div>
+            )}
             <div className="mt-6 bg-gray-900 rounded-lg p-4">
               <div className="text-lg font-bold text-center mb-4">投掷物类型</div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
