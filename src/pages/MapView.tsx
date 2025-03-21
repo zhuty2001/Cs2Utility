@@ -77,22 +77,18 @@ const MapView = () => {
             )}
             <div className="mt-6 bg-gray-900 rounded-lg p-4">
               <div className="text-lg font-bold text-center mb-4">投掷物类型</div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-3 gap-4">
                 <div className="flex items-center gap-2 bg-gray-800 p-2 rounded-lg">
-                  <span className="text-xl">💨</span>
+                  <img src="./images/items/smoke.png" alt="烟雾弹" className="w-6 h-6" />
                   <span>烟雾弹</span>
                 </div>
                 <div className="flex items-center gap-2 bg-gray-800 p-2 rounded-lg">
-                  <span className="text-xl">⚡</span>
+                  <img src="./images/items/flash.png" alt="闪光弹" className="w-6 h-6" />
                   <span>闪光弹</span>
                 </div>
                 <div className="flex items-center gap-2 bg-gray-800 p-2 rounded-lg">
-                  <span className="text-xl">🔥</span>
+                  <img src="./images/items/molotov.png" alt="燃烧弹" className="w-6 h-6" />
                   <span>燃烧弹</span>
-                </div>
-                <div className="flex items-center gap-2 bg-gray-800 p-2 rounded-lg">
-                  <span className="text-xl">🎯</span>
-                  <span>诱饵弹</span>
                 </div>
               </div>
             </div>
