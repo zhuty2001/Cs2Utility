@@ -22,6 +22,11 @@ const MapView = () => {
   const currentMapViews = mapRadarFiles[mapName || ''] || [];
   const hasMultipleViews = currentMapViews.length > 1;
 
+  // 获取图片路径的辅助函数
+  const getImagePath = (view: string) => {
+    return `images/maps/${mapName}/${view}`;
+  };
+
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       <div className="container mx-auto px-4 py-8">
@@ -52,7 +57,7 @@ const MapView = () => {
                 {currentMapViews.map((view, index) => (
                   <div key={index} className="bg-gray-900 rounded-lg overflow-hidden">
                     <img
-                      src={`/Cs2Utility/images/maps/${mapName}/${view}`}
+                      src={getImagePath(view)}
                       alt={`${mapName} 地图 ${index + 1}`}
                       className="w-full h-auto object-contain"
                     />
@@ -63,7 +68,7 @@ const MapView = () => {
               <div className="max-w-4xl mx-auto">
                 <div className="bg-gray-900 rounded-lg overflow-hidden">
                   <img
-                    src={`/Cs2Utility/images/maps/${mapName}/${currentMapViews[0]}`}
+                    src={getImagePath(currentMapViews[0])}
                     alt={`${mapName} 地图`}
                     className="w-full h-auto object-contain"
                   />
