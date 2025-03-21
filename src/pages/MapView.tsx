@@ -7,6 +7,16 @@ const MapView = () => {
   const [scale, setScale] = useState(1);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
+  // 文件名映射
+  const imageFileMap: { [key: string]: string } = {
+    'dust2': 'Cs2_dust2_overview.png',
+    'mirage': 'Cs2_mirage_radar.png',
+    'inferno': 'CS2_inferno_radar.png',
+    'nuke': 'Cs2_nuke_radar.png',
+    'anubis': 'De_anubis_radar.png',
+    'ancient': 'Ancient_Radar.png'
+  };
+
   const handleWheel = (e: React.WheelEvent) => {
     e.preventDefault();
     const delta = e.deltaY * -0.01;
@@ -51,7 +61,7 @@ const MapView = () => {
             onMouseDown={handleMouseDown}
           >
             <img
-              src={`/images/maps_processed/${mapName}/Cs2_${mapName}_overview.png`}
+              src={`/images/maps_processed/${mapName}/${imageFileMap[mapName || '']}`}
               alt={`${mapName} 地图`}
               className="w-full h-full object-contain"
             />
