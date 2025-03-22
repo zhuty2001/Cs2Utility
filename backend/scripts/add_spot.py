@@ -3,6 +3,7 @@ import json
 import shutil
 import argparse
 from datetime import datetime
+import random
 
 def create_spot_directory(base_dir, map_name, spot_id):
     """创建点位目录"""
@@ -33,48 +34,26 @@ def copy_images(spot_dir, image_paths):
 
 def update_spots_json(data_dir, map_name, spot_data):
     """更新spots.json文件"""
-    spots_file = os.path.join(data_dir, "spots.json")
+    # 为每个地图创建独立的spots.json文件
+    spots_file = os.path.join(data_dir, f"spots_{map_name}.json")
     
     # 读取现有数据
     if os.path.exists(spots_file):
-        with open(spots_file, "r", encoding="utf-8") as f:
-            data = json.load(f)
+        try:
+            with open(spots_file, 'r', encoding='utf-8') as f:
+                spots = json.load(f)
+        except json.JSONDecodeError:
+            # 如果文件为空或格式错误，初始化为空列表
+            spots = []
     else:
-        data = {"spots": []}
+        spots = []
     
     # 添加新的点位数据
-    data["spots"].append(spot_data)
+    spots.append(spot_data)
     
     # 保存更新后的数据
-    with open(spots_file, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-
-def update_train_test_split(data_dir, spot_id):
-    """更新训练集和测试集划分"""
-    # 读取现有的划分
-    train_file = os.path.join(data_dir, "train.json")
-    test_file = os.path.join(data_dir, "test.json")
-    
-    train_ids = []
-    test_ids = []
-    
-    if os.path.exists(train_file):
-        with open(train_file, "r", encoding="utf-8") as f:
-            train_ids = json.load(f)
-    
-    if os.path.exists(test_file):
-        with open(test_file, "r", encoding="utf-8") as f:
-            test_ids = json.load(f)
-    
-    # 将新的spot_id添加到训练集（80%概率）或测试集（20%概率）
-    if len(train_ids) / (len(train_ids) + len(test_ids) + 1) < 0.8:
-        train_ids.append(spot_id)
-        with open(train_file, "w", encoding="utf-8") as f:
-            json.dump(train_ids, f, indent=2)
-    else:
-        test_ids.append(spot_id)
-        with open(test_file, "w", encoding="utf-8") as f:
-            json.dump(test_ids, f, indent=2)
+    with open(spots_file, 'w', encoding='utf-8') as f:
+        json.dump(spots, f, ensure_ascii=False, indent=2)
 
 def add_spot(map_name, location, target, throwable_type, description, image_paths, tags=None):
     """添加新的投掷物点位"""
@@ -86,14 +65,9 @@ def add_spot(map_name, location, target, throwable_type, description, image_path
     map_dir = os.path.join(base_dir, map_name)
     os.makedirs(map_dir, exist_ok=True)
     
-    # 生成新的spot_id（使用时间戳）
-    spot_id = int(datetime.now().timestamp())
-    
-    # 创建点位目录
-    spot_dir = create_spot_directory(base_dir, map_name, spot_id)
-    
-    # 复制图片
-    image_paths = copy_images(spot_dir, image_paths)
+    # 从第一个图片路径中获取目录名作为ID
+    first_image_path = image_paths[0]
+    spot_id = os.path.basename(os.path.dirname(first_image_path))
     
     # 构建点位数据
     spot_data = {
@@ -110,11 +84,8 @@ def add_spot(map_name, location, target, throwable_type, description, image_path
     # 更新spots.json
     update_spots_json("backend/data/throwable_spots", map_name, spot_data)
     
-    # 更新训练集和测试集划分
-    update_train_test_split("backend/data/throwable_spots", spot_id)
-    
     print(f"成功添加新的投掷物点位！ID: {spot_id}")
-    print(f"图片已保存到: {spot_dir}")
+    print(f"数据已保存到: backend/data/throwable_spots/spots_{map_name}.json")
 
 def main():
     parser = argparse.ArgumentParser(description="添加新的投掷物点位")
