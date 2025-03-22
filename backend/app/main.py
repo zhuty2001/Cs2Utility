@@ -18,7 +18,7 @@ app.add_middleware(
 
 # 获取当前文件所在目录的上级目录（backend目录）
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-IMAGES_DIR = os.path.join(BASE_DIR, "data", "throwable_spots", "images")
+IMAGES_DIR = os.path.join(BASE_DIR, "backend", "data", "throwable_spots", "images")
 
 # 挂载静态文件目录
 app.mount("/api/images", StaticFiles(directory=IMAGES_DIR), name="images")
