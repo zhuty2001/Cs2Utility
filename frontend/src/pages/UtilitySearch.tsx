@@ -11,7 +11,6 @@ import {
   CircularProgress,
   Alert,
   Snackbar,
-  CardMedia,
   ImageList,
   ImageListItem
 } from '@mui/material';
@@ -39,16 +38,17 @@ const UtilitySearch: React.FC = () => {
       const response = await api.searchUtility(query);
       console.log('API返回数据:', response);
       
-      if (response.status === 'success' && response.data.spots) {
-        setResults(response.data.spots);
+      if (response && response.status === 'success' && response.data && response.data.spots) {
         console.log('设置结果:', response.data.spots);
+        setResults(response.data.spots);
       } else {
+        console.error('API返回数据格式不正确:', response);
         setError('未找到相关投掷物点位');
         setResults([]);
       }
     } catch (err) {
       console.error('搜索错误:', err);
-      setError('搜索失败，请稍后重试');
+      setError(err instanceof Error ? err.message : '搜索失败，请稍后重试');
       setResults([]);
     } finally {
       setLoading(false);

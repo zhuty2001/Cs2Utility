@@ -5,6 +5,9 @@ const API_BASE_URL = process.env.NODE_ENV === 'production'
   ? 'https://cs2utility.onrender.com/api'  // 生产环境API地址
   : 'http://127.0.0.1:8000/api';  // 开发环境API地址
 
+console.log('当前环境:', process.env.NODE_ENV);
+console.log('API基础URL:', API_BASE_URL);
+
 export interface SearchQuery {
   query: string;
 }
@@ -36,7 +39,12 @@ const api = {
       const response = await axios.get<ApiResponse>(
         `${API_BASE_URL}/throwable-spots/query`,
         {
-          params: { query }
+          params: { query },
+          timeout: 10000, // 设置超时时间为10秒
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
         }
       );
 
@@ -44,13 +52,17 @@ const api = {
       console.log('响应状态:', response.status);
       console.log('响应数据:', response.data);
 
+      if (!response.data) {
+        throw new Error('API返回数据为空');
+      }
+
       return response.data;
     } catch (error) {
       console.error('API调用错误:', error);
       if (error instanceof AxiosError) {
         if (error.response) {
           // 服务器响应了，但状态码不在 2xx 范围内
-          const errorMessage = error.response.data.message || error.message;
+          const errorMessage = error.response.data?.message || error.message;
           console.error('服务器错误响应:', error.response.status, errorMessage);
           throw new Error(`API Error: ${error.response.status} - ${errorMessage}`);
         } else if (error.request) {
