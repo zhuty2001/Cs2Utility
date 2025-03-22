@@ -43,8 +43,8 @@ const UtilitySearch: React.FC = () => {
           throwable_type: "FLASH",
           description: "这是一个示例回答。实际项目中，这里会显示 AI 生成的回答和相关的投掷物示意图。",
           image_paths: [
-            "https://via.placeholder.com/400x300?text=位置图",
-            "https://via.placeholder.com/400x300?text=准星图"
+            "https://picsum.photos/400/300?text=位置示意图",
+            "https://picsum.photos/400/300?text=准星示意图"
           ],
           tags: [
             "A门",
@@ -105,6 +105,10 @@ const UtilitySearch: React.FC = () => {
                           alt={`${spot.location} - ${spot.throwable_type} - 图片${imgIndex + 1}`}
                           loading="lazy"
                           style={{ height: '200px', objectFit: 'cover' }}
+                          onError={(e) => {
+                            console.error('图片加载失败:', imagePath);
+                            e.currentTarget.src = 'https://placehold.co/400x300/png?text=图片加载失败';
+                          }}
                         />
                       </ImageListItem>
                     ))}
