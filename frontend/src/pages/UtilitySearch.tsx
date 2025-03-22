@@ -11,9 +11,10 @@ import {
   CircularProgress,
   Alert,
   Snackbar,
-  Chip
+  CardMedia,
+  ImageList,
+  ImageListItem
 } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
 import api, { SearchResult } from '../services/api';
 
 const UtilitySearch: React.FC = () => {
@@ -24,23 +25,31 @@ const UtilitySearch: React.FC = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const handleSearch = async () => {
-    if (!query) {
-      setError('请输入查询内容');
+    if (!query.trim()) {
+      setError('请输入搜索内容');
       setSnackbarOpen(true);
       return;
     }
 
     setLoading(true);
     setError(null);
+
     try {
-      console.log('Starting search with:', { query });
-      const searchResults = await api.searchUtility({ query });
-      console.log('Search results:', searchResults);
-      setResults(searchResults);
+      console.log('开始搜索:', query);
+      const response = await api.searchUtility(query);
+      console.log('API返回数据:', response);
+      
+      if (response.status === 'success' && response.data.spots) {
+        setResults(response.data.spots);
+        console.log('设置结果:', response.data.spots);
+      } else {
+        setError('未找到相关投掷物点位');
+        setResults([]);
+      }
     } catch (err) {
-      console.error('Search error:', err);
-      setError(err instanceof Error ? err.message : '查询失败，请稍后重试');
-      setSnackbarOpen(true);
+      console.error('搜索错误:', err);
+      setError('搜索失败，请稍后重试');
+      setResults([]);
     } finally {
       setLoading(false);
     }
@@ -51,55 +60,79 @@ const UtilitySearch: React.FC = () => {
   };
 
   return (
-    <Container maxWidth="md">
-      <Box sx={{ mt: 8, mb: 4, textAlign: 'center' }}>
-        <Typography variant="h2" component="h1" gutterBottom>
-          道具查询
-        </Typography>
-        <Typography variant="h5" color="text.secondary" paragraph>
-          输入你的需求，AI将为你推荐合适的道具投掷点位
-        </Typography>
-      </Box>
-
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
         <TextField
           fullWidth
-          label="输入你的需求"
+          label="搜索投掷物点位"
+          variant="outlined"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="例如：我想在A点扔一个烟雾弹"
+          onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
         />
-
-        <Button
-          variant="contained"
-          size="large"
-          startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <SearchIcon />}
+        <Button 
+          variant="contained" 
           onClick={handleSearch}
           disabled={loading}
+          sx={{ minWidth: '120px' }}
         >
-          {loading ? '查询中...' : '查询'}
+          {loading ? <CircularProgress size={24} /> : '搜索'}
         </Button>
       </Box>
 
-      <Grid container spacing={2}>
-        {results.map((result) => (
-          <Grid item xs={12} key={result.id}>
+      <Grid container spacing={3}>
+        {results.map((spot, index) => (
+          <Grid item xs={12} sm={6} md={4} key={index}>
             <Card>
+              {spot.image_paths && spot.image_paths.length > 0 && (
+                <Box sx={{ p: 2 }}>
+                  <ImageList cols={2} rowHeight={200} gap={8}>
+                    {spot.image_paths.map((imagePath, imgIndex) => (
+                      <ImageListItem key={imgIndex}>
+                        <img
+                          src={imagePath}
+                          alt={`${spot.location} - ${spot.throwable_type} - 图片${imgIndex + 1}`}
+                          loading="lazy"
+                          style={{ height: '200px', objectFit: 'cover' }}
+                        />
+                      </ImageListItem>
+                    ))}
+                  </ImageList>
+                </Box>
+              )}
               <CardContent>
                 <Typography variant="h6" gutterBottom>
-                  {result.location}
+                  {spot.location} → {spot.target}
                 </Typography>
-                <Typography color="text.secondary" gutterBottom>
-                  目标: {result.target} | 道具类型: {result.throwable_type}
+                <Typography color="textSecondary" gutterBottom>
+                  投掷物类型: {spot.throwable_type}
                 </Typography>
-                <Typography variant="body2" paragraph>
-                  {result.description}
+                <Typography variant="body2">
+                  {spot.description}
                 </Typography>
-                <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-                  {result.tags.map((tag, index) => (
-                    <Chip key={index} label={tag} size="small" />
-                  ))}
-                </Box>
+                {spot.tags && spot.tags.length > 0 && (
+                  <Box sx={{ mt: 2 }}>
+                    <Typography variant="subtitle2" gutterBottom>
+                      标签:
+                    </Typography>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                      {spot.tags.map((tag: string, tagIndex: number) => (
+                        <Typography
+                          key={tagIndex}
+                          variant="caption"
+                          sx={{
+                            backgroundColor: 'primary.main',
+                            color: 'white',
+                            padding: '4px 8px',
+                            borderRadius: '4px',
+                          }}
+                        >
+                          {tag}
+                        </Typography>
+                      ))}
+                    </Box>
+                  </Box>
+                )}
               </CardContent>
             </Card>
           </Grid>
@@ -110,13 +143,8 @@ const UtilitySearch: React.FC = () => {
         open={snackbarOpen} 
         autoHideDuration={6000} 
         onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
-        <Alert 
-          onClose={handleCloseSnackbar} 
-          severity="error" 
-          sx={{ width: '100%' }}
-        >
+        <Alert onClose={handleCloseSnackbar} severity="error">
           {error}
         </Alert>
       </Snackbar>

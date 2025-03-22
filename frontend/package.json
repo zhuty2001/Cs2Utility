@@ -2,7 +2,7 @@
   "name": "cs2-utility",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://zhuty2001.github.io/cs2_utility_page",
+  "homepage": "https://zhuty2001.github.io/Cs2Utility",
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",

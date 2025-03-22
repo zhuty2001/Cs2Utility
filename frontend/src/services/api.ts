@@ -1,9 +1,7 @@
 import axios, { AxiosError } from 'axios';
 
-// 根据环境选择API基础URL
-const API_BASE_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://cs2utility.onrender.com/api'  // 生产环境URL
-  : '/api';  // 开发环境URL
+// 使用本地开发环境地址
+const API_BASE_URL = 'http://127.0.0.1:8000/api';
 
 export interface SearchQuery {
   query: string;
@@ -19,20 +17,24 @@ export interface SearchResult {
   tags: string[];
 }
 
+export interface ApiResponse {
+  status: string;
+  data: {
+    spots: SearchResult[];
+  };
+}
+
 const api = {
-  searchUtility: async (params: SearchQuery): Promise<SearchResult[]> => {
+  searchUtility: async (query: string): Promise<ApiResponse> => {
     try {
       console.log('准备发送请求到后端API...');
-      console.log('当前环境:', process.env.NODE_ENV);
       console.log('请求URL:', `${API_BASE_URL}/throwable-spots/query`);
-      console.log('请求参数:', params);
+      console.log('请求参数:', { query });
       
-      const response = await axios.get(
+      const response = await axios.get<ApiResponse>(
         `${API_BASE_URL}/throwable-spots/query`,
         {
-          params: {
-            query: params.query
-          }
+          params: { query }
         }
       );
 
@@ -40,13 +42,7 @@ const api = {
       console.log('响应状态:', response.status);
       console.log('响应数据:', response.data);
 
-      if (response.data.status === 'success' && Array.isArray(response.data.data.spots)) {
-        console.log('成功解析响应数据');
-        return response.data.data.spots;
-      } else {
-        console.error('响应数据格式无效:', response.data);
-        throw new Error('Invalid response format from backend');
-      }
+      return response.data;
     } catch (error) {
       console.error('API调用错误:', error);
       if (error instanceof AxiosError) {
