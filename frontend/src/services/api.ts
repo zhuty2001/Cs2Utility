@@ -1,7 +1,9 @@
 import axios, { AxiosError } from 'axios';
 
-// 使用本地开发环境地址
-const API_BASE_URL = 'http://127.0.0.1:8000/api';
+// 根据环境使用不同的API地址
+const API_BASE_URL = process.env.NODE_ENV === 'production'
+  ? 'https://cs2utility.onrender.com/api'  // 生产环境API地址
+  : 'http://127.0.0.1:8000/api';  // 开发环境API地址
 
 export interface SearchQuery {
   query: string;
