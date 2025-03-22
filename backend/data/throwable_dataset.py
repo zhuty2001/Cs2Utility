@@ -1,10 +1,14 @@
 import os
 import json
+import random
 from typing import List, Dict, Any
 from dassl.data.datasets import DatasetBase
 from dassl.data.transforms import build_transform
+from PIL import Image
+import torch
+from torch.utils.data import Dataset
 
-class ThrowableDataset(DatasetBase):
+class ThrowableDataset(Dataset):
     """投掷物点位数据集"""
     
     dataset_dir = "throwable_spots"
@@ -26,10 +30,8 @@ class ThrowableDataset(DatasetBase):
         # 加载所有投掷物点位数据
         data_file = os.path.join(self.dataset_dir, "spots.json")
         with open(data_file, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-            
-        self.data = data['spots']
-        self.num_classes = len(set(spot['throwable_type'] for spot in self.data))
+            self.spots = json.load(f)
+        self.num_classes = len(set(spot['throwable_type'] for spot in self.spots))
         
         # 加载训练集和测试集划分
         train_file = os.path.join(self.split_dir, "train.json")
@@ -40,30 +42,32 @@ class ThrowableDataset(DatasetBase):
         with open(test_file, 'r', encoding='utf-8') as f:
             self.test_data = json.load(f)
             
-    def __getitem__(self, index):
-        """获取数据项"""
-        spot = self.data[index]
+    def _get_negative_sample(self, current_spot):
+        """获取负样本（不同投掷物类型的描述）"""
+        # 过滤出不同类型的投掷物
+        negative_spots = [spot for spot in self.spots 
+                         if spot['throwable_type'] != current_spot['throwable_type']]
+        if negative_spots:
+            return random.choice(negative_spots)['description']
+        return current_spot['description']  # 如果没有负样本，返回当前描述
+    
+    def __getitem__(self, idx):
+        spot = self.spots[idx]
         
-        # 加载图像
-        image_path = os.path.join(self.image_dir, spot['image_path'])
-        image = self.load_image(image_path)
+        # 构建描述文本
+        description = f"从{spot['location']}投掷{spot['throwable_type']}到{spot['target']}，{spot['description']}"
         
-        # 应用数据转换
-        if self.transform is not None:
-            image = self.transform(image)
-            
-        # 构建标签
-        label = self.get_label(spot['throwable_type'])
+        # 获取负样本
+        negative_description = self._get_negative_sample(spot)
         
         return {
-            'image': image,
-            'label': label,
-            'spot': spot
+            'description': description,
+            'negative_description': negative_description
         }
         
     def __len__(self):
         """返回数据集大小"""
-        return len(self.data)
+        return len(self.spots)
         
     def get_label(self, throwable_type: str) -> int:
         """获取投掷物类型的标签索引"""
@@ -77,5 +81,4 @@ class ThrowableDataset(DatasetBase):
         
     def load_image(self, image_path: str):
         """加载图像"""
-        from PIL import Image
         return Image.open(image_path).convert('RGB') 
