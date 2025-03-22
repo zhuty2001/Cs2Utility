@@ -28,38 +28,39 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
 
       - name: Install Dependencies
-        run: npm install
+        run: cd frontend && npm install
 
       - name: Build
-        run: npm run build
+        run: cd frontend && npm run build
 
       - name: Create 404.html
         run: |
-          cp dist/index.html dist/404.html
+          cp frontend/dist/index.html frontend/dist/404.html
           echo "Created 404.html file"
 
       - name: Create .nojekyll
         run: |
-          touch dist/.nojekyll
+          touch frontend/dist/.nojekyll
           echo "Created .nojekyll file"
 
       - name: List build output
         run: |
           echo "Build output directory contents:"
-          ls -la dist
+          ls -la frontend/dist
           echo "Checking index.html content:"
-          cat dist/index.html
+          cat frontend/dist/index.html
           echo "Checking 404.html content:"
-          cat dist/404.html
+          cat frontend/dist/404.html
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: ./frontend/dist
           force_orphan: true
           commit_message: "Deploy to GitHub Pages"
           publish_branch: gh-pages
