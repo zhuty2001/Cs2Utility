@@ -1,23 +1,5 @@
 [
   {
-    "id": 1742675102,
-    "map": "dust2",
-    "location": "A门外",
-    "target": "A大",
-    "throwable_type": "SMOKE",
-    "description": "在A门外靠墙站，瞄准树的左下角，在队友进门时站立跳投，帮助队友A大对枪",
-    "image_paths": [
-      "backend/data/throwable_spots/images/dust2/1742675102/image_1.jpg",
-      "backend/data/throwable_spots/images/dust2/1742675102/image_2.jpg"
-    ],
-    "tags": [
-      "A门",
-      "A大",
-      "烟雾弹",
-      "掩护"
-    ]
-  },
-  {
     "id": "1",
     "map": "dust2",
     "location": "A门外",
