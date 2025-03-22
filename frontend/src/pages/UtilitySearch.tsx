@@ -14,7 +14,7 @@ import {
   ImageList,
   ImageListItem
 } from '@mui/material';
-import { SearchResult } from '../services/api';
+import api, { SearchResult } from '../services/api';
 
 const UtilitySearch: React.FC = () => {
   const [query, setQuery] = useState('');
@@ -34,49 +34,21 @@ const UtilitySearch: React.FC = () => {
     setError(null);
 
     try {
-      // 使用固定的测试数据
-      const testData: SearchResult[] = [
-        {
-          id: "1",
-          location: "A门外",
-          target: "A大",
-          throwable_type: "FLASH",
-          description: "在A门外靠墙站，瞄准树的左下角，在队友进门时站立跳投，帮助队友A大对枪",
-          image_paths: [
-            "https://via.placeholder.com/400x300?text=位置图",
-            "https://via.placeholder.com/400x300?text=准星图"
-          ],
-          tags: [
-            "A门",
-            "A大",
-            "闪光弹",
-            "掩护"
-          ]
-        },
-        {
-          id: "2",
-          location: "B洞",
-          target: "B区",
-          throwable_type: "SMOKE",
-          description: "在B洞入口处，瞄准天花板上的标记，投掷烟雾弹封住B区视野",
-          image_paths: [
-            "https://via.placeholder.com/400x300?text=烟雾弹位置",
-            "https://via.placeholder.com/400x300?text=烟雾效果"
-          ],
-          tags: [
-            "B洞",
-            "B区",
-            "烟雾弹",
-            "封烟"
-          ]
-        }
-      ];
-
-      console.log('设置测试数据:', testData);
-      setResults(testData);
+      console.log('开始搜索:', query);
+      const response = await api.searchUtility(query);
+      console.log('API返回数据:', response);
+      
+      if (response && response.status === 'success' && response.data && response.data.spots) {
+        console.log('设置结果:', response.data.spots);
+        setResults(response.data.spots);
+      } else {
+        console.error('API返回数据格式不正确:', response);
+        setError('未找到相关投掷物点位');
+        setResults([]);
+      }
     } catch (err) {
-      console.error('错误:', err);
-      setError('显示测试数据时出错');
+      console.error('搜索错误:', err);
+      setError(err instanceof Error ? err.message : '搜索失败，请稍后重试');
       setResults([]);
     } finally {
       setLoading(false);
