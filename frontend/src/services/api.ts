@@ -1,6 +1,9 @@
 import axios, { AxiosError } from 'axios';
 
-const API_BASE_URL = '/api';
+// 根据环境选择API基础URL
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://cs2utility.onrender.com/api'  // 生产环境URL
+  : '/api';  // 开发环境URL
 
 export interface SearchQuery {
   query: string;
@@ -20,6 +23,7 @@ const api = {
   searchUtility: async (params: SearchQuery): Promise<SearchResult[]> => {
     try {
       console.log('准备发送请求到后端API...');
+      console.log('当前环境:', process.env.NODE_ENV);
       console.log('请求URL:', `${API_BASE_URL}/throwable-spots/query`);
       console.log('请求参数:', params);
       
