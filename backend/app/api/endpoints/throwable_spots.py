@@ -5,8 +5,9 @@ router = APIRouter()
 
 def get_image_urls(image_paths):
     """将本地图片路径转换为可访问的URL"""
-    base_url = "http://127.0.0.1:8000/api/images"
-    return [f"{base_url}/{path}" for path in image_paths]
+    # 根据环境设置基础URL
+    base_url = os.getenv("API_BASE_URL", "http://127.0.0.1:8000/api")
+    return [f"{base_url}/images/{path}" for path in image_paths]
 
 @router.get("/query")
 async def query_throwable_spots(query: str):
