@@ -19,16 +19,6 @@ type MapConfig = {
   bounds: [[number, number], [number, number]];
 };
 
-type MapConfigs = {
-  [key: string]: MapConfig;
-};
-
-type MapInfo = {
-  name: string;
-  radarFiles: string[];
-  currentRadarIndex: number;
-};
-
 // 默认地图配置
 const defaultMapConfig: MapConfig = {
   center: [512, 512],
