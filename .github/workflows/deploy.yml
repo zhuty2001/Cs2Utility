@@ -38,29 +38,29 @@ jobs:
 
       - name: Create 404.html
         run: |
-          cp frontend/dist/index.html frontend/dist/404.html
+          cp frontend/build/index.html frontend/build/404.html
           echo "Created 404.html file"
 
       - name: Create .nojekyll
         run: |
-          touch frontend/dist/.nojekyll
+          touch frontend/build/.nojekyll
           echo "Created .nojekyll file"
 
       - name: List build output
         run: |
           echo "Build output directory contents:"
-          ls -la frontend/dist
+          ls -la frontend/build
           echo "Checking index.html content:"
-          cat frontend/dist/index.html
+          cat frontend/build/index.html
           echo "Checking 404.html content:"
-          cat frontend/dist/404.html
+          cat frontend/build/404.html
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./frontend/dist
+          publish_dir: ./frontend/build
           force_orphan: true
           commit_message: "Deploy to GitHub Pages"
           publish_branch: gh-pages
