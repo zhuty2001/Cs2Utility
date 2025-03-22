@@ -43,8 +43,8 @@ const UtilitySearch: React.FC = () => {
           throwable_type: "FLASH",
           description: "这是一个示例回答。实际项目中，这里会显示 AI 生成的回答和相关的投掷物示意图。",
           image_paths: [
-            "https://picsum.photos/400/300?text=位置示意图",
-            "https://picsum.photos/400/300?text=准星示意图"
+            "/api/images/dust2/1/position.jpg",
+            "/api/images/dust2/1/crosshair.jpg"
           ],
           tags: [
             "A门",
