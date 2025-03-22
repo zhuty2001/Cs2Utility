@@ -41,7 +41,7 @@ const UtilitySearch: React.FC = () => {
           location: "A门外",
           target: "A大",
           throwable_type: "FLASH",
-          description: "在A门外靠墙站，瞄准树的左下角，在队友进门时站立跳投，帮助队友A大对枪",
+          description: "这是一个示例回答。实际项目中，这里会显示 AI 生成的回答和相关的投掷物示意图。",
           image_paths: [
             "/api/images/dust2/1/position.jpg",
             "/api/images/dust2/1/crosshair.jpg"
