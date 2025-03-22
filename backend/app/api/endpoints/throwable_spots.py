@@ -13,7 +13,7 @@ def get_image_urls(image_paths):
 async def query_throwable_spots(query: str):
     """查询投掷物点位"""
     try:
-        # 暂时返回固定的投掷点位数据
+        # 始终返回 dust2 id=1 的内容
         spots = [
             {
                 "id": "1",
