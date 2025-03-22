@@ -13,7 +13,6 @@ async def query_throwable_spots(query: str):
                 "spots": [
                     {
                         "id": "1",
-                        "map": "dust2",
                         "location": "A门外",
                         "target": "A大",
                         "throwable_type": "FLASH",

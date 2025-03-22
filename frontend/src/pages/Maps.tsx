@@ -1,3 +1,5 @@
+import React from 'react';
+
 const Maps = () => {
   const maps = [
     { 
@@ -47,5 +49,20 @@ const Maps = () => {
     }
   ];
 
-  // ... rest of the code ...
-} 
+  return (
+    <div>
+      <h1>CS2 地图</h1>
+      <div className="maps-grid">
+        {maps.map((map) => (
+          <div key={map.name} className="map-card">
+            <img src={map.image} alt={map.name} />
+            <h2>{map.name}</h2>
+            <p>{map.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Maps; 
