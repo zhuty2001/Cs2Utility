@@ -5,22 +5,18 @@ import {
   Container, 
   TextField, 
   Button, 
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   Card,
   CardContent,
   Grid,
   CircularProgress,
   Alert,
-  Snackbar
+  Snackbar,
+  Chip
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import api, { SearchResult } from '../services/api';
 
 const UtilitySearch: React.FC = () => {
-  const [map, setMap] = useState('');
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
@@ -28,8 +24,8 @@ const UtilitySearch: React.FC = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const handleSearch = async () => {
-    if (!map || !query) {
-      setError('请选择地图并输入查询内容');
+    if (!query) {
+      setError('请输入查询内容');
       setSnackbarOpen(true);
       return;
     }
@@ -37,8 +33,8 @@ const UtilitySearch: React.FC = () => {
     setLoading(true);
     setError(null);
     try {
-      console.log('Starting search with:', { map, query });
-      const searchResults = await api.searchUtility({ map, query });
+      console.log('Starting search with:', { query });
+      const searchResults = await api.searchUtility({ query });
       console.log('Search results:', searchResults);
       setResults(searchResults);
     } catch (err) {
@@ -54,15 +50,6 @@ const UtilitySearch: React.FC = () => {
     setSnackbarOpen(false);
   };
 
-  const getDifficultyColor = (difficulty: string) => {
-    switch (difficulty) {
-      case 'easy': return 'success.main';
-      case 'medium': return 'warning.main';
-      case 'hard': return 'error.main';
-      default: return 'text.primary';
-    }
-  };
-
   return (
     <Container maxWidth="md">
       <Box sx={{ mt: 8, mb: 4, textAlign: 'center' }}>
@@ -75,24 +62,6 @@ const UtilitySearch: React.FC = () => {
       </Box>
 
       <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
-        <FormControl sx={{ minWidth: 200 }}>
-          <InputLabel>选择地图</InputLabel>
-          <Select
-            value={map}
-            label="选择地图"
-            onChange={(e) => setMap(e.target.value)}
-          >
-            <MenuItem value="dust2">Dust2</MenuItem>
-            <MenuItem value="mirage">Mirage</MenuItem>
-            <MenuItem value="inferno">Inferno</MenuItem>
-            <MenuItem value="overpass">Overpass</MenuItem>
-            <MenuItem value="nuke">Nuke</MenuItem>
-            <MenuItem value="vertigo">Vertigo</MenuItem>
-            <MenuItem value="ancient">Ancient</MenuItem>
-            <MenuItem value="anubis">Anubis</MenuItem>
-          </Select>
-        </FormControl>
-
         <TextField
           fullWidth
           label="输入你的需求"
@@ -121,17 +90,16 @@ const UtilitySearch: React.FC = () => {
                   {result.location}
                 </Typography>
                 <Typography color="text.secondary" gutterBottom>
-                  道具类型: {result.utility_type} | 投掷方式: {result.throw_type}
+                  目标: {result.target} | 道具类型: {result.throwable_type}
                 </Typography>
                 <Typography variant="body2" paragraph>
                   {result.description}
                 </Typography>
-                <Typography 
-                  variant="body2" 
-                  color={getDifficultyColor(result.difficulty)}
-                >
-                  难度: {result.difficulty}
-                </Typography>
+                <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                  {result.tags.map((tag, index) => (
+                    <Chip key={index} label={tag} size="small" />
+                  ))}
+                </Box>
               </CardContent>
             </Card>
           </Grid>
