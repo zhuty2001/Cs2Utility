@@ -56,6 +56,12 @@ const api = {
         throw new Error('API返回数据为空');
       }
 
+      // 确保返回的数据格式正确
+      if (response.data.status !== 'success' || !response.data.data || !response.data.data.spots) {
+        console.error('API返回数据格式不正确:', response.data);
+        throw new Error('API返回数据格式不正确');
+      }
+
       return response.data;
     } catch (error) {
       console.error('API调用错误:', error);
