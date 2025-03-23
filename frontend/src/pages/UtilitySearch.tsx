@@ -44,7 +44,8 @@ const UtilitySearch: React.FC = () => {
           description: "在A门外靠墙站，瞄准树的左下角，在队友进门时站立跳投，帮助队友A大对枪",
           image_paths: [
             "images/dust2/1/p.jpg",
-            "images/dust2/1/c.jpg"
+            "images/dust2/1/c.jpg",
+            "images/dust2/1/r.jpg"
           ],
           tags: [
             "A门",
