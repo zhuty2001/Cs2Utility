@@ -22,9 +22,9 @@ async def query_throwable_spots(query: str):
                 "throwable_type": "FLASH",
                 "description": "在A门外靠墙站，瞄准树的左下角，在队友进门时站立跳投，帮助队友A大对枪",
                 "image_paths": [
-                    "dust2/1/p.jpg",
-                    "dust2/1/c.jpg",
-                    "dust2/1/r.jpg"
+                    "dust2/1/1.jpg",
+                    "dust2/1/2.jpg",
+                    "dust2/1/3.jpg"
                 ],
                 "tags": [
                     "A门",
