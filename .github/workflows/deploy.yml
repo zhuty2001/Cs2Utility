@@ -36,6 +36,12 @@ jobs:
       - name: Build
         run: cd frontend && npm run build
 
+      - name: Copy Images
+        run: |
+          mkdir -p frontend/build/images
+          cp -r backend/data/throwable_spots/images/* frontend/build/images/
+          echo "Copied image files"
+
       - name: Create 404.html
         run: |
           cp frontend/build/index.html frontend/build/404.html
@@ -50,6 +56,8 @@ jobs:
         run: |
           echo "Build output directory contents:"
           ls -la frontend/build
+          echo "Checking images directory:"
+          ls -la frontend/build/images
           echo "Checking index.html content:"
           cat frontend/build/index.html
           echo "Checking 404.html content:"

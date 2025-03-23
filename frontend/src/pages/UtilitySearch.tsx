@@ -43,8 +43,8 @@ const UtilitySearch: React.FC = () => {
           throwable_type: "FLASH",
           description: "在A门外靠墙站，瞄准树的左下角，在队友进门时站立跳投，帮助队友A大对枪",
           image_paths: [
-            "/api/images/dust2/1/position.jpg",
-            "/api/images/dust2/1/crosshair.jpg"
+            "images/dust2/1/position.jpg",
+            "images/dust2/1/crosshair.jpg"
           ],
           tags: [
             "A门",
