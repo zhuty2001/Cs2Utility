@@ -93,21 +93,26 @@ const UtilitySearch: React.FC = () => {
 
       <Grid container spacing={3}>
         {results.map((spot, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
+          <Grid item xs={12} key={index}>
             <Card>
               {spot.image_paths && spot.image_paths.length > 0 && (
                 <Box sx={{ p: 2 }}>
-                  <ImageList cols={2} rowHeight={200} gap={8}>
+                  <ImageList cols={2} rowHeight={400} gap={16}>
                     {spot.image_paths.map((imagePath, imgIndex) => (
                       <ImageListItem key={imgIndex}>
                         <img
                           src={imagePath}
                           alt={`${spot.location} - ${spot.throwable_type} - 图片${imgIndex + 1}`}
                           loading="lazy"
-                          style={{ height: '200px', objectFit: 'cover' }}
+                          style={{ 
+                            height: '400px', 
+                            width: '100%',
+                            objectFit: 'contain',
+                            backgroundColor: '#f5f5f5'
+                          }}
                           onError={(e) => {
                             console.error('图片加载失败:', imagePath);
-                            e.currentTarget.src = 'https://placehold.co/400x300/png?text=图片加载失败';
+                            e.currentTarget.src = 'https://placehold.co/800x600/png?text=图片加载失败';
                           }}
                         />
                       </ImageListItem>
