@@ -12,7 +12,6 @@ import {
   Alert,
   Snackbar,
   MobileStepper,
-  IconButton,
   Paper
 } from '@mui/material';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
