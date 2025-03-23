@@ -11,9 +11,12 @@ import {
   CircularProgress,
   Alert,
   Snackbar,
-  ImageList,
-  ImageListItem
+  MobileStepper,
+  IconButton,
+  Paper
 } from '@mui/material';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import { SearchResult } from '../services/api';
 
 const UtilitySearch: React.FC = () => {
@@ -22,6 +25,15 @@ const UtilitySearch: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [activeStep, setActiveStep] = useState(0);
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
 
   const handleSearch = async () => {
     if (!query.trim()) {
@@ -32,6 +44,7 @@ const UtilitySearch: React.FC = () => {
 
     setLoading(true);
     setError(null);
+    setActiveStep(0); // 重置图片索引
 
     try {
       // 使用测试数据
@@ -71,6 +84,8 @@ const UtilitySearch: React.FC = () => {
     setSnackbarOpen(false);
   };
 
+  const imageLabels = ['站位', '准星', '效果'];
+
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Box sx={{ display: 'flex', gap: 2, mb: 4 }}>
@@ -98,27 +113,77 @@ const UtilitySearch: React.FC = () => {
             <Card>
               {spot.image_paths && spot.image_paths.length > 0 && (
                 <Box sx={{ p: 2 }}>
-                  <ImageList cols={2} rowHeight={400} gap={16}>
-                    {spot.image_paths.map((imagePath, imgIndex) => (
-                      <ImageListItem key={imgIndex}>
-                        <img
-                          src={imagePath}
-                          alt={`${spot.location} - ${spot.throwable_type} - 图片${imgIndex + 1}`}
-                          loading="lazy"
-                          style={{ 
-                            height: '400px', 
-                            width: '100%',
-                            objectFit: 'contain',
-                            backgroundColor: '#f5f5f5'
-                          }}
-                          onError={(e) => {
-                            console.error('图片加载失败:', imagePath);
-                            e.currentTarget.src = 'https://placehold.co/800x600/png?text=图片加载失败';
-                          }}
-                        />
-                      </ImageListItem>
-                    ))}
-                  </ImageList>
+                  <Paper 
+                    elevation={0}
+                    sx={{ 
+                      position: 'relative',
+                      backgroundColor: '#f5f5f5',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      p: 2
+                    }}
+                  >
+                    <Typography variant="h6" gutterBottom>
+                      {imageLabels[activeStep]}
+                    </Typography>
+                    <Box
+                      sx={{
+                        height: 500,
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        overflow: 'hidden'
+                      }}
+                    >
+                      <img
+                        src={spot.image_paths[activeStep]}
+                        alt={`${spot.location} - ${spot.throwable_type} - ${imageLabels[activeStep]}`}
+                        style={{
+                          maxHeight: '100%',
+                          maxWidth: '100%',
+                          objectFit: 'contain'
+                        }}
+                        onError={(e) => {
+                          console.error('图片加载失败:', spot.image_paths[activeStep]);
+                          e.currentTarget.src = 'https://placehold.co/800x600/png?text=图片加载失败';
+                        }}
+                      />
+                    </Box>
+                    <MobileStepper
+                      variant="dots"
+                      steps={spot.image_paths.length}
+                      position="static"
+                      activeStep={activeStep}
+                      sx={{ 
+                        maxWidth: 400,
+                        flexGrow: 1,
+                        mt: 2,
+                        backgroundColor: 'transparent'
+                      }}
+                      nextButton={
+                        <Button
+                          size="small"
+                          onClick={handleNext}
+                          disabled={activeStep === spot.image_paths.length - 1}
+                          endIcon={<KeyboardArrowRight />}
+                        >
+                          下一步
+                        </Button>
+                      }
+                      backButton={
+                        <Button
+                          size="small"
+                          onClick={handleBack}
+                          disabled={activeStep === 0}
+                          startIcon={<KeyboardArrowLeft />}
+                        >
+                          上一步
+                        </Button>
+                      }
+                    />
+                  </Paper>
                 </Box>
               )}
               <CardContent>
